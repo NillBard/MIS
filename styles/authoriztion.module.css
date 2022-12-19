@@ -1,0 +1,54 @@
+.auth_layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 250px;
+}
+
+.auth_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 350px;
+}
+
+.reg_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 400px;
+}
+
+.input_block {
+  width: 250px;
+  height: 80px;
+  justify-content: space-between;
+  margin: 20px 0 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.reg_input_block {
+  width: 250px;
+  height: 200px;
+  justify-content: space-between;
+  margin: 20px 0 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_block input,
+.reg_input_block input {
+  height: 30px;
+  border-radius: 10px;
+  border: 3px solid rgb(13, 13, 117);
+}
+
+.auth_button {
+  background: rgb(13, 13, 117);
+  color: white;
+  width: 90%;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+}

@@ -14,12 +14,14 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import s from "../styles/navbar.module.css";
 import { useLogoutMutation } from "../store/user/userApi";
 import { useSelector } from "react-redux";
+import { useLogoutMediaMutation } from "../store/media/mediaApi";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [logout] = useLogoutMutation();
+  const [logoutUser] = useLogoutMutation();
+  const [logoutMedia] = useLogoutMediaMutation();
   const { user } = useSelector((state) => state.user);
-  const media = null;
+  const { media } = useSelector((state) => state.media);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,6 +31,18 @@ export default function Navbar() {
   };
 
   const checkUserRole = user ? "UserProfile" : media ? "MediaProfile" : null;
+
+  const logout = async () => {
+    if (checkUserRole === "MediaProfile") {
+      await logoutMedia();
+    } else {
+      await logoutUser();
+    }
+  };
+  console.log("user", user);
+  console.log("media", media);
+
+  console.log("checkUserRole", checkUserRole);
 
   return (
     <>

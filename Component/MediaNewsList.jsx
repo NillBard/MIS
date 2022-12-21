@@ -1,9 +1,11 @@
 import { Typography, Box } from "@mui/material";
-import { useGetFavouriteQuery } from "../store/news/newsApi";
+import { useSelector } from "react-redux";
+import { useGetMediaNewsQuery } from "../store/news/newsApi";
 import NewsItem from "./NewsItem";
 
-export default function FavouriteList() {
-  const { data, isLoading, error } = useGetFavouriteQuery();
+export default function MediaNewsList() {
+  const { media } = useSelector((state) => state.media);
+  const { data, isLoading, error } = useGetMediaNewsQuery(media?.data?.id);
 
   return (
     <Box sx={{ maxWidth: "1280px" }}>
@@ -14,8 +16,9 @@ export default function FavouriteList() {
             id={el.id}
             description={el.text}
             title={el.title}
+            img={el.img || ""}
             favourite={el.isFavorite}
-            isMedia={false}
+            isMedia={true}
           />
         ))
       ) : (

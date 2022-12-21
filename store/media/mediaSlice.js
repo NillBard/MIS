@@ -7,27 +7,27 @@ const mediaSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(
-      mediaApi.endpoints.login.matchFulfilled,
+      mediaApi.endpoints.loginMedia.matchFulfilled,
       (state, { payload }) => {
-        state.user = payload;
+        state.media = payload;
       }
     );
     builder.addMatcher(
-      mediaApi.endpoints.register.matchFulfilled,
+      mediaApi.endpoints.registerMedia.matchFulfilled,
       (state, { payload }) => {
-        state.user = payload;
+        state.media = payload;
       }
     );
     builder.addMatcher(
-      mediaApi.endpoints.logout.matchFulfilled,
+      mediaApi.endpoints.logoutMedia.matchFulfilled,
       (state, action) => {
-        state.user = null;
+        state.media = null;
       }
     );
     builder.addMatcher(
       mediaApi.endpoints.authenticateMedia.matchFulfilled,
       (state, { payload }) => {
-        state.user = payload;
+        state.media = payload;
       }
     );
   },

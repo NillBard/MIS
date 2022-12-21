@@ -23,7 +23,7 @@ export default function RegistrationMeida() {
     e.preventDefault();
     if (password && regNumber && name && email && firstName && lastName) {
       await registration({
-        registrationNumber: regNumber,
+        registrationNumber: +regNumber,
         password,
         email,
         name,

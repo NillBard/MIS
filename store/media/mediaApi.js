@@ -8,21 +8,21 @@ export const mediaApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
-    login: builder.mutation({
+    loginMedia: builder.mutation({
       query: (loginForm) => ({
         url: "/login",
         method: "POST",
         body: loginForm,
       }),
     }),
-    register: builder.mutation({
+    registerMedia: builder.mutation({
       query: (regForm) => ({
         url: "/register",
         method: "POST",
         body: regForm,
       }),
     }),
-    logout: builder.mutation({
+    logoutMedia: builder.mutation({
       query: () => ({
         url: "/logout",
         method: "POST",
@@ -38,8 +38,8 @@ export const mediaApi = createApi({
 });
 
 export const {
-  useLoginMutation,
-  useRegisterMutation,
-  useLogoutMutation,
+  useLoginMediaMutation,
+  useLogoutMediaMutation,
+  useRegisterMediaMutation,
   useAuthenticateMediaMutation,
 } = mediaApi;

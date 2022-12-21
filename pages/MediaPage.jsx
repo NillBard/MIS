@@ -6,7 +6,7 @@ export default function MediaPage() {
     <Box sx={{ maxWidth: "1280px", margin: "40px auto 0" }}>
       <Typography
         variant="h2"
-        sx={{ textAlign: "center", marginBottom: "20px" }}
+        sx={{ textAlign: "center", marginBottom: "100px" }}
       >
         Все медиа
       </Typography>

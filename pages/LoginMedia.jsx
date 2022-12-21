@@ -2,21 +2,22 @@ import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
 import s from "../styles/authoriztion.module.css";
 import Link from "next/link";
-import { useSelector, useDispatch } from "react-redux";
-import { useLoginMutation } from "../store/media/mediaApi";
+import { useSelector } from "react-redux";
+import { useLoginMediaMutation } from "../store/media/mediaApi";
 import { useRouter } from "next/router";
 
 export default function Login() {
   const [userLogin, setUserLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [login, result] = useLoginMutation();
+  const [login, result] = useLoginMediaMutation();
   const { media } = useSelector((state) => state.media);
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password && userLogin) {
-      await login({ registrationNumber: userLogin, password });
+      await login({ registrationNumber: +userLogin, password });
     }
   };
 

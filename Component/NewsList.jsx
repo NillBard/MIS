@@ -18,6 +18,7 @@ export default function NewsList() {
             title={el.title}
             img={el.img || ""}
             favourite={el.isFavorite}
+            isMedia={false}
           />
         ))
       ) : (

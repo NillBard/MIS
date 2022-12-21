@@ -4,7 +4,7 @@ import { BASE__URL } from "../../utils/constants";
 export const newsApi = createApi({
   reducerPath: "api/news",
   baseQuery: fetchBaseQuery({ baseUrl: BASE__URL, credentials: "include" }),
-  tagTypes: ["News"],
+  tagTypes: ["News", "MediaNews"],
   endpoints: (builder) => ({
     getNews: builder.query({
       query: (date) =>
@@ -22,6 +22,18 @@ export const newsApi = createApi({
       }),
       invalidatesTags: ["News"],
     }),
+    getMediaNews: builder.query({
+      query: (mediaId) => `/media/${mediaId}/news?limit=100&offset=0`,
+      providesTags: (result) => ["News"],
+    }),
+    updateImage: builder.mutation({
+      query: ({ formData, newsId }) => ({
+        url: `/news/${newsId}/image`,
+        method: "PUT",
+        body: formData,
+      }),
+      invalidatesTags: ["News"],
+    }),
   }),
 });
 
@@ -29,4 +41,6 @@ export const {
   useGetNewsQuery,
   useGetFavouriteQuery,
   useToggleFavouritesMutation,
+  useGetMediaNewsQuery,
+  useUpdateImageMutation,
 } = newsApi;

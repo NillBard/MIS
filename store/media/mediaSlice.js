@@ -1,31 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userApi } from "./userApi";
+import { mediaApi } from "./mediaApi";
 
-const userSlice = createSlice({
-  name: "user",
-  initialState: { user: null },
+const mediaSlice = createSlice({
+  name: "media",
+  initialState: { media: null },
   reducers: {},
   extraReducers: (builder) => {
     builder.addMatcher(
-      userApi.endpoints.login.matchFulfilled,
+      mediaApi.endpoints.login.matchFulfilled,
       (state, { payload }) => {
         state.user = payload;
       }
     );
     builder.addMatcher(
-      userApi.endpoints.register.matchFulfilled,
+      mediaApi.endpoints.register.matchFulfilled,
       (state, { payload }) => {
         state.user = payload;
       }
     );
     builder.addMatcher(
-      userApi.endpoints.logout.matchFulfilled,
+      mediaApi.endpoints.logout.matchFulfilled,
       (state, action) => {
         state.user = null;
       }
     );
     builder.addMatcher(
-      userApi.endpoints.authenticate.matchFulfilled,
+      mediaApi.endpoints.authenticateMedia.matchFulfilled,
       (state, { payload }) => {
         state.user = payload;
       }
@@ -33,4 +33,4 @@ const userSlice = createSlice({
   },
 });
 
-export const userReduser = userSlice.reducer;
+export const mediaReduser = mediaSlice.reducer;

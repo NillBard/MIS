@@ -1,7 +1,10 @@
 import { Card } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import s from "../styles/authoriztion.module.css";
 import Link from "next/link";
+import { useRegisterMutation } from "../store/user/userApi";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 export default function Registration() {
   const [email, setEmail] = useState("");
@@ -9,10 +12,27 @@ export default function Registration() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const [registration, result] = useRegisterMutation();
+
+  const { user } = useSelector((state) => state.user);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password, name, login);
+    if (password && login && name && email) {
+      await registration({
+        login,
+        password,
+        email,
+        name,
+      });
+    }
   };
+
+  useEffect(() => {
+    user !== null ? router.push("/") : console.log("error");
+  });
+
   return (
     <Card sx={{ padding: "30px" }}>
       <form className={s.reg_form}>
@@ -25,13 +45,13 @@ export default function Registration() {
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            type="email"
+            type="text"
             placeholder="Enter name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
           <input
-            type="password"
+            type="text"
             placeholder="Enter Login"
             value={login}
             onChange={(e) => setLogin(e.target.value)}
@@ -44,7 +64,7 @@ export default function Registration() {
           />
         </div>
         <button className={s.auth_button} onClick={handleSubmit}>
-          Войти
+          Зарегестрироваться
         </button>
         <p>
           Уже есть аккаунт? <Link href="/Login">Войдите</Link>

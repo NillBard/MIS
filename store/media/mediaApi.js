@@ -1,9 +1,12 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { BASE_USER_URL } from "../../utils/constants";
+import { BASE_MEDIA_URL } from "../../utils/constants";
 
-export const userApi = createApi({
-  reducerPath: "api/users",
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_USER_URL, credentials: "include" }),
+export const mediaApi = createApi({
+  reducerPath: "api/media",
+  baseQuery: fetchBaseQuery({
+    baseUrl: BASE_MEDIA_URL,
+    credentials: "include",
+  }),
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (loginForm) => ({
@@ -25,7 +28,7 @@ export const userApi = createApi({
         method: "POST",
       }),
     }),
-    authenticate: builder.mutation({
+    authenticateMedia: builder.mutation({
       query: () => ({
         url: "/authenticate",
         method: "POST",
@@ -34,5 +37,9 @@ export const userApi = createApi({
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
-  userApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+  useAuthenticateMediaMutation,
+} = mediaApi;

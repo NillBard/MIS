@@ -12,10 +12,14 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useState } from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import s from "../styles/navbar.module.css";
+import { useLogoutMutation } from "../store/user/userApi";
+import { useSelector } from "react-redux";
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
-
+  const [logout] = useLogoutMutation();
+  const { user } = useSelector((state) => state.user);
+  const media = null;
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,6 +27,9 @@ export default function Navbar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const checkUserRole = user ? "UserProfile" : media ? "MediaProfile" : null;
+
   return (
     <>
       <Box
@@ -41,7 +48,10 @@ export default function Navbar() {
             justifyContent: "space-between",
           }}
         >
-          <ArticleIcon sx={{ fontSize: 50, color: "white" }}></ArticleIcon>
+          <Link className={s.link} href="/">
+            <ArticleIcon sx={{ fontSize: 50, color: "white" }}></ArticleIcon>
+          </Link>
+
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ul className={s.list}>
               <li>
@@ -114,20 +124,41 @@ export default function Navbar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
-          <Avatar /> <Link href="/Login"> Авторизоваться</Link>
-        </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
-        <Divider />
+        {checkUserRole === null ? (
+          <>
+            <MenuItem>
+              <Avatar />{" "}
+              <Link href="/Login"> Авторизоваться как пользователь</Link>
+            </MenuItem>
+            <MenuItem>
+              <Avatar />{" "}
+              <Link href="/LoginMedia"> Авторизоваться как медиа</Link>
+            </MenuItem>
+          </>
+        ) : null}
 
-        <MenuItem>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
+        {checkUserRole !== null ? (
+          <MenuItem>
+            <Avatar /> <Link href={`/${checkUserRole}`}> Профиль</Link>
+          </MenuItem>
+        ) : null}
+        {checkUserRole === "UserProfile" ? (
+          <MenuItem>
+            <ArticleIcon sx={{ marginRight: "10px" }} />{" "}
+            <Link href={`/Favourite`}> Избранные новости</Link>
+          </MenuItem>
+        ) : null}
+        {checkUserRole !== null ? (
+          <>
+            <Divider />
+            <MenuItem onClick={logout}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </>
+        ) : null}
       </Menu>
     </>
   );

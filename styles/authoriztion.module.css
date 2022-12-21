@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 250px;
+  margin-top: 150px;
 }
 
 .auth_form {
@@ -51,4 +51,11 @@
   padding: 10px;
   border: none;
   border-radius: 15px;
+}
+
+.media_input input {
+  margin-top: 10px;
+  height: 30px;
+  border-radius: 10px;
+  border: 3px solid rgb(13, 13, 117);
 }
